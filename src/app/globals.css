@@ -1,0 +1,533 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — see docs/design-system.md                           */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  --color-ink: #050505;
+  --color-ink-2: #0b0b0c;
+  --color-ink-3: #141415;
+  --color-fg: #f4f3ef;
+  --color-fg-muted: #a6a5a0;
+  --color-fg-subtle: #7d7c78;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.16);
+  --color-accent: #f2a33a;
+  --color-accent-soft: #f7c77d;
+  --color-accent-ink: #1a1105;
+  --color-danger: #ff7a6b;
+  --color-success: #8fe0b0;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --text-display-xl: clamp(3rem, 1.1rem + 7.4vw, 9.25rem);
+  --text-display-xl--line-height: 0.92;
+  --text-display-xl--letter-spacing: -0.025em;
+  --text-display-l: clamp(2.75rem, 1.4rem + 5vw, 6.5rem);
+  --text-display-l--line-height: 0.95;
+  --text-display-l--letter-spacing: -0.02em;
+  --text-display-m: clamp(2rem, 1.2rem + 2.8vw, 3.75rem);
+  --text-display-m--line-height: 1;
+  --text-display-m--letter-spacing: -0.015em;
+  --text-display-s: clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem);
+  --text-display-s--line-height: 1.1;
+  --text-display-s--letter-spacing: -0.01em;
+  --text-body-l: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-body-l--line-height: 1.55;
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.14em;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+  --font-serif: var(--font-display), Georgia, "Times New Roman", serif;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-fg);
+    color-scheme: dark;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  button:not(:disabled),
+  [role="button"],
+  a[href],
+  label[for],
+  select,
+  summary {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* Lenis (smooth scroll) — inlined from lenis/dist/lenis.css */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilities                                                           */
+/* ------------------------------------------------------------------ */
+
+/* Display serif: condensed width + light weight — the editorial voice of the headlines. */
+@utility font-serif {
+  font-family: var(--font-serif);
+  font-variation-settings: "wdth" 72;
+  font-weight: 350;
+}
+
+@utility container-x {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
+}
+
+@utility section-y {
+  padding-block: clamp(6rem, 12vw, 11rem);
+}
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+}
+
+/* Liquid glass — per the hero reference spec */
+@utility liquid-glass {
+  background: rgb(255 255 255 / 0.01);
+  background-blend-mode: luminosity;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.1);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.4px;
+    background: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.45) 0%,
+      rgb(255 255 255 / 0.15) 20%,
+      rgb(255 255 255 / 0) 40%,
+      rgb(255 255 255 / 0) 60%,
+      rgb(255 255 255 / 0.15) 80%,
+      rgb(255 255 255 / 0.45) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+/* Denser variant for surfaces that sit on busy content (scrolled nav, overlays) */
+@utility liquid-glass-strong {
+  background: rgb(10 10 11 / 0.8);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.08);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.28) 0%,
+      rgb(255 255 255 / 0.06) 30%,
+      rgb(255 255 255 / 0) 60%,
+      rgb(255 255 255 / 0.1) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility hairline {
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-line-strong) 12%,
+    var(--color-line-strong) 88%,
+    transparent
+  );
+  height: 1px;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Film grain — static, GPU-cheap, sits above everything               */
+/* ------------------------------------------------------------------ */
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero entrance — pure CSS so it paints before hydration (LCP-safe)   */
+/* ------------------------------------------------------------------ */
+
+@keyframes line-rise {
+  from {
+    transform: translate3d(0, 108%, 0) rotate(2.5deg);
+  }
+  to {
+    transform: translate3d(0, 0, 0) rotate(0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.hero-line > span {
+  display: block;
+  transform-origin: 0 100%;
+  animation: line-rise 1.25s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.hero-fade {
+  animation: fade-up 1s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.fade-in {
+  animation: fade-in 1.2s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
+
+.scroll-cue::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-fg);
+  animation: scroll-cue 2.2s var(--ease-in-out-quart) 1.6s 4 both;
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll reveals — driven by <RevealObserver /> adding .is-revealed    */
+/* ------------------------------------------------------------------ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y, 28px), 0);
+  transition:
+    opacity 1s var(--ease-out-expo) var(--reveal-delay, 0ms),
+    transform 1s var(--ease-out-expo) var(--reveal-delay, 0ms);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.rw {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.rw > span {
+  display: inline-block;
+  transform: translate3d(0, 110%, 0) rotate(3deg);
+  transition: transform 1.05s var(--ease-out-expo);
+  transition-delay: calc(var(--reveal-delay, 0ms) + var(--i, 0) * 45ms);
+}
+
+[data-reveal-text].is-revealed .rw > span {
+  transform: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Custom cursor                                                        */
+/* ------------------------------------------------------------------ */
+
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor [contenteditable="true"] {
+  cursor: text !important;
+}
+
+html.has-custom-cursor select {
+  cursor: default !important;
+}
+
+.cursor-root {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cursor-root[data-visible="true"] {
+  opacity: 1;
+}
+
+.cursor-root[data-state="native"] {
+  opacity: 0;
+}
+
+.cursor-dot,
+.cursor-ring,
+.cursor-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 999px;
+  background: #fff;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+}
+
+.cursor-ring > span {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.4);
+  transition:
+    transform 0.45s var(--ease-out-expo),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.cursor-root[data-state="hover"] .cursor-ring > span {
+  transform: scale(1.55);
+  border-color: rgb(255 255 255 / 0.85);
+  background: rgb(255 255 255 / 0.06);
+}
+
+.cursor-root[data-state="label"] .cursor-ring > span {
+  transform: scale(2.6);
+  border-color: transparent;
+  background: var(--color-fg);
+}
+
+.cursor-root[data-state="label"] .cursor-dot {
+  opacity: 0;
+}
+
+.cursor-root[data-pressed="true"] .cursor-ring > span {
+  transform: scale(0.8);
+}
+
+.cursor-root[data-state="hover"][data-pressed="true"] .cursor-ring > span {
+  transform: scale(1.3);
+}
+
+.cursor-label {
+  width: 0;
+  height: 0;
+}
+
+.cursor-label > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+  transition:
+    opacity 0.25s ease,
+    transform 0.45s var(--ease-out-expo);
+}
+
+.cursor-root[data-state="label"] .cursor-label > span {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ------------------------------------------------------------------ */
+/* Rolling label — buttons swap text on hover                           */
+/* ------------------------------------------------------------------ */
+
+.roll {
+  display: inline-grid;
+  overflow: hidden;
+  line-height: 1.25;
+}
+
+.roll > span {
+  grid-area: 1 / 1;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.roll > span:last-child {
+  transform: translateY(105%);
+}
+
+.group:hover .roll > span:first-child,
+.group:focus-visible .roll > span:first-child {
+  transform: translateY(-105%);
+}
+
+.group:hover .roll > span:last-child,
+.group:focus-visible .roll > span:last-child {
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion — final states, no ambient movement                   */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scroll-cue::after {
+    animation: none;
+    transform: none;
+  }
+
+  [data-reveal],
+  .rw > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -37,7 +37,7 @@ export function SmartLink({ href, onClick, ...props }: SmartLinkProps) {
       target.focus({ preventScroll: true });
     } else {
       scrollTo(0);
-      history.replaceState(null, "", pathname);
+      history.replaceState(null, "", window.location.pathname);
     }
   };
 

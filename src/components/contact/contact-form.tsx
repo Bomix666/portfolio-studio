@@ -1,10 +1,11 @@
 "use client";
 
 import { AnimatePresence, m } from "motion/react";
+import Link from "next/link";
 import { ArrowRight, CircleAlert, LoaderCircle, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { budgets, projectTypes, type BudgetValue, type ProjectTypeValue } from "@/config/contact";
-import { siteConfig } from "@/config/site";
+import { budgets, labelFor, projectTypes, type BudgetValue, type ProjectTypeValue } from "@/config/contact";
+import { isStaticExport, siteConfig } from "@/config/site";
 import { PREFILL_EVENT, type ContactPrefill } from "@/lib/contact-prefill";
 import { ease } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -38,6 +39,36 @@ const FIELD_ORDER: ContactField[] = ["name", "company", "email", "phone", "proje
 const MIN_TOKEN_AGE_MS = 3_200;
 
 type Status = "idle" | "submitting" | "success" | "error";
+
+/**
+ * Запасной путь для статической версии (GitHub Pages): сервера нет, поэтому заявка уходит
+ * черновиком письма. Длинный текст обрезаем — почтовые клиенты режут слишком длинные mailto.
+ */
+function buildMailto(data: {
+  name: string;
+  company?: string;
+  email: string;
+  phone?: string;
+  projectType: string;
+  budget: string;
+  message: string;
+}) {
+  const message = data.message.length > 1500 ? `${data.message.slice(0, 1500)}…` : data.message;
+  const body = [
+    `Имя: ${data.name}`,
+    data.company ? `Компания: ${data.company}` : "",
+    `Email: ${data.email}`,
+    data.phone ? `Телефон: ${data.phone}` : "",
+    `Тип проекта: ${labelFor.projectType(data.projectType)}`,
+    `Бюджет: ${labelFor.budget(data.budget)}`,
+    "",
+    message,
+  ]
+    .filter((line, i, all) => i === all.indexOf("") || line !== "")
+    .join("\n");
+  const subject = `Заявка с сайта — ${data.name}`;
+  return `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
 /** «Ещё 1 символ / 3 символа / 12 символов» — русские формы множественного числа. */
 function remainingLabel(n: number) {
@@ -86,7 +117,7 @@ export function ContactForm() {
   }, []);
 
   const warmToken = () => {
-    if (!token.current) fetchToken().catch(() => {});
+    if (!isStaticExport && !token.current) fetchToken().catch(() => {});
   };
 
   // --- prefill from other sections ---------------------------------------------------------
@@ -153,6 +184,15 @@ export function ContactForm() {
       setTouched(Object.fromEntries(FIELD_ORDER.map((f) => [f, true])));
       setFormError(null);
       focusFirstInvalid(fieldErrors);
+      return;
+    }
+
+    if (isStaticExport) {
+      // Нет сервера — открываем почтовую программу с готовым письмом.
+      setFormError(null);
+      setSentTo("");
+      setStatus("success");
+      window.location.href = buildMailto(parsed.data);
       return;
     }
 
@@ -227,14 +267,27 @@ export function ContactForm() {
               tabIndex={-1}
               className="mt-10 font-serif text-display-m text-fg outline-none"
             >
-              Сообщение получено.
+              {isStaticExport ? "Письмо подготовлено." : "Сообщение получено."}
             </h3>
             <p className="mt-4 max-w-md text-body-l text-fg-muted">
-              Скоро с вами свяжемся.
-              {sentTo && (
+              {isStaticExport ? (
                 <>
-                  {" "}
-                  Ответ придёт на <span className="text-fg">{sentTo}</span>.
+                  Мы открыли вашу почтовую программу с готовым письмом — осталось нажать «Отправить». Не открылось?
+                  Напишите нам на{" "}
+                  <a className="text-fg underline underline-offset-4" href={`mailto:${siteConfig.contact.email}`}>
+                    {siteConfig.contact.email}
+                  </a>
+                  .
+                </>
+              ) : (
+                <>
+                  Скоро с вами свяжемся.
+                  {sentTo && (
+                    <>
+                      {" "}
+                      Ответ придёт на <span className="text-fg">{sentTo}</span>.
+                    </>
+                  )}
                 </>
               )}
             </p>
@@ -413,9 +466,9 @@ export function ContactForm() {
             <div className="flex flex-col-reverse gap-6 sm:flex-row sm:items-center sm:justify-between">
               <p className="max-w-xs text-xs leading-relaxed text-fg-subtle">
                 Используем ваши данные только для ответа. Подробнее — в{" "}
-                <a href="/privacy" className="underline underline-offset-4 hover:text-fg">
+                <Link href="/privacy" className="underline underline-offset-4 hover:text-fg">
                   политике конфиденциальности
-                </a>
+                </Link>
                 .
               </p>
               <button

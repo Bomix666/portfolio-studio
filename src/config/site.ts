@@ -8,6 +8,17 @@
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 
+/**
+ * Статическая выгрузка (GitHub Pages): `npm run build:pages`.
+ * Там нет сервера, поэтому API формы недоступно (форма переключается на письмо через mailto),
+ * а сайт живёт под подпутём `/<repo>` (basePath).
+ */
+export const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
+export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+/** Путь к файлу из `public/` с учётом basePath (Next добавляет его сам только к ссылкам и маршрутам). */
+export const asset = (path: string) => `${basePath}${path}`;
+
 export const siteConfig = {
   /** PLACEHOLDER — название студии: логотип, мета-данные, футер. */
   name: "Umbra",
@@ -45,9 +56,9 @@ export const siteConfig = {
      * Сначала отдаётся AV1/WebM, H.264/MP4 — универсальный запасной вариант.
      */
     video: {
-      poster: "/media/hero-poster.webp",
-      large: { webm: "/media/hero-1920.webm", mp4: "/media/hero-1920.mp4" },
-      small: { webm: "/media/hero-1280.webm", mp4: "/media/hero-1280.mp4" },
+      poster: asset("/media/hero-poster.webp"),
+      large: { webm: asset("/media/hero-1920.webm"), mp4: asset("/media/hero-1920.mp4") },
+      small: { webm: asset("/media/hero-1280.webm"), mp4: asset("/media/hero-1280.mp4") },
     },
   },
 } as const;

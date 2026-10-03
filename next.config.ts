@@ -41,19 +41,36 @@ const securityHeaders = [
     : [{ key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" }]),
 ];
 
+/**
+ * GitHub Pages / любой статический хостинг: `npm run build:pages` задаёт NEXT_PUBLIC_STATIC_EXPORT.
+ * Заголовки (CSP и т. д.) на статике недоступны — их нужно задавать на уровне хостинга/CDN;
+ * серверный API формы в этой сборке исключается (см. scripts/build-pages.mjs).
+ */
+const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
-  async headers() {
-    return [
-      { source: "/:path*", headers: securityHeaders },
-      {
-        // Hero film encodes: long-lived cache. Rename the file when replacing it.
-        source: "/media/:file*",
-        headers: [{ key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" }],
-      },
-    ];
-  },
+  ...(isStaticExport
+    ? {
+        output: "export",
+        // /privacy/ → privacy/index.html: так GitHub Pages отдаёт страницы без расширения.
+        trailingSlash: true,
+        ...(basePath ? { basePath } : {}),
+      }
+    : {
+        async headers() {
+          return [
+            { source: "/:path*", headers: securityHeaders },
+            {
+              // Hero film encodes: long-lived cache. Rename the file when replacing it.
+              source: "/media/:file*",
+              headers: [{ key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" }],
+            },
+          ];
+        },
+      }),
 };
 
 export default nextConfig;

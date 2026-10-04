@@ -43,3 +43,12 @@ next-env.d.ts
 
 # static export helper
 /.pages-backup/
+
+# impeccable: development-only artefacts (direction round, review captures)
+/.impeccable/questions/
+/.impeccable/review/
+/.impeccable/decision-direction.json
+/.impeccable/seed-direction.txt
+/.impeccable/brief-home.md
+/.impeccable/config.local.json
+/.impeccable/hook.cache.json

@@ -44,13 +44,13 @@ function SpecimenSkeleton() {
           {Array.from({ length: 9 }, (_, i) => (
             <div
               key={i}
-              className="h-11 w-32 shrink-0 rounded-full border border-line lg:h-[3.55rem] lg:w-auto lg:rounded-none lg:border-0 lg:border-b"
+              className="h-11 w-32 shrink-0 rounded-full border border-line lg:h-[4.125rem] lg:w-auto lg:rounded-none lg:border-0 lg:border-b"
             />
           ))}
         </div>
       </div>
       <div className="min-w-0 lg:col-span-8">
-        <div className="overflow-hidden rounded-[1.75rem] border border-line bg-ink-2">
+        <div className="overflow-hidden rounded-plate bg-ink-2 ring-1 ring-white/10">
           <div className="h-[3.75rem] border-b border-line" />
           <div className="p-4 md:p-6">
             <div className="h-[26rem] animate-pulse rounded-[14px] bg-white/[0.03] sm:h-[30rem] lg:h-[34rem]" />

@@ -10,13 +10,13 @@ const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").re
 
 /**
  * Статическая выгрузка (GitHub Pages): `npm run build:pages`.
- * Там нет сервера, поэтому API формы недоступно (форма переключается на письмо через mailto),
- * а сайт живёт под подпутём `/<repo>` (basePath).
+ * Там нет сервера, поэтому API формы недоступно (форма переключается на письмо через mailto),
+ * а сайт живёт под подпутём `/<repo>` (basePath).
  */
 export const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === "true";
 export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
-/** Путь к файлу из `public/` с учётом basePath (Next добавляет его сам только к ссылкам и маршрутам). */
+/** Путь к файлу из `public/` с учётом basePath (Next добавляет его сам только к ссылкам и маршрутам). */
 export const asset = (path: string) => `${basePath}${path}`;
 
 export const siteConfig = {
@@ -33,6 +33,12 @@ export const siteConfig = {
 
   /** Показывается в первом экране и футере. Держите актуальным. */
   availability: "Открыты для новых проектов",
+
+  /**
+   * PLACEHOLDER — пока `true`, сайт сам говорит посетителю, что название и контакты временные
+   * (блок контактов и футер). Поставьте `false`, когда замените название, почту и ники ниже.
+   */
+  placeholderContacts: true,
 
   contact: {
     /** PLACEHOLDER — публичная почта на сайте. */

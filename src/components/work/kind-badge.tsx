@@ -1,20 +1,24 @@
-import type { Project } from "@/config/projects";
+import { kindLabel, type Project } from "@/config/projects";
 import { cn } from "@/lib/utils";
 
-/** Distinguishes real client work from studio concepts — everywhere a project appears. */
+/**
+ * Says what a project is — everywhere it appears. Only confirmed client work gets the lit dot;
+ * concepts and unconfirmed examples are outlined, so nothing reads as a client claim by default.
+ */
 export function KindBadge({ kind }: { kind: Project["kind"] }) {
   return (
     <span
       className={cn(
-        "label inline-flex items-center gap-2 rounded-full px-3 py-1.5",
-        kind === "client" ? "bg-white/[0.06] text-fg-muted" : "border border-dashed border-white/25 text-fg-muted",
+        "label inline-flex items-center gap-2 rounded-full bg-black/45 px-3 py-1.5 text-white/80 backdrop-blur-md",
+        kind !== "client" && "outline outline-1 -outline-offset-1 outline-white/30",
+        kind === "concept" && "outline-dashed",
       )}
     >
       <span
         aria-hidden="true"
-        className={cn("size-1.5 rounded-full", kind === "client" ? "bg-accent" : "border border-fg-muted")}
+        className={cn("size-1.5 rounded-full", kind === "client" ? "bg-accent" : "border border-white/70")}
       />
-      {kind === "client" ? "Клиентский проект" : "Концепт студии"}
+      {kindLabel[kind]}
     </span>
   );
 }

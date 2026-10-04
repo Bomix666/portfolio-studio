@@ -134,21 +134,13 @@ export function Specimen() {
                 onKeyDown={(e) => onTabKey(e, i)}
                 className={cn(
                   "group relative shrink-0 rounded-full border px-4 py-2.5 text-left text-sm whitespace-nowrap transition-colors duration-300",
-                  "lg:flex lg:items-baseline lg:gap-4 lg:rounded-none lg:border-0 lg:border-b lg:border-line lg:px-0 lg:py-4 lg:text-base",
+                  "lg:block lg:rounded-none lg:border-0 lg:border-b lg:border-line lg:px-0 lg:py-4 lg:font-serif lg:text-[1.65rem] lg:leading-tight",
                   selected
                     ? "border-fg bg-fg text-ink lg:bg-transparent lg:text-fg"
-                    : "border-line-strong text-fg-muted hover:text-fg",
+                    : "border-line-strong text-fg-muted hover:text-fg lg:text-fg-subtle",
                 )}
               >
-                <span
-                  className={cn(
-                    "label hidden transition-colors lg:inline",
-                    selected ? "text-accent" : "text-fg-subtle group-hover:text-fg-muted",
-                  )}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="lg:transition-transform lg:duration-500 lg:ease-out-expo lg:group-aria-selected:translate-x-1.5">
+                <span className="lg:transition-transform lg:duration-500 lg:ease-out-expo lg:group-aria-selected:translate-x-2.5">
                   {item.label}
                 </span>
                 {selected && (
@@ -166,7 +158,7 @@ export function Specimen() {
 
       {/* Specimen */}
       <div id="specimen-panel" role="tabpanel" aria-labelledby={`tab-${mode}`} className="min-w-0 lg:col-span-8">
-        <div className="overflow-hidden rounded-[1.75rem] border border-line bg-ink-2">
+        <div className="overflow-hidden rounded-plate bg-ink-2 ring-1 ring-white/10">
           {/* Toolbar */}
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-4 py-3 md:px-5">
             <div className="flex items-center gap-2.5">

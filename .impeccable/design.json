@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-03T00:00:00Z",
+  "title": "Design System: Umbra",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "neutral", "displayName": "Чернила", "canonical": "#050505", "tonalRamp": ["oklch(15% 0 0)", "oklch(26% 0 0)", "oklch(38% 0 0)", "oklch(50% 0 0)", "oklch(62% 0 0)", "oklch(74% 0 0)", "oklch(85% 0 0)", "oklch(95% 0 0)"] },
+      "ink-2": { "role": "neutral", "displayName": "Чернила-2", "canonical": "#0b0b0c", "tonalRamp": ["oklch(15% 0.002 285)", "oklch(26% 0.002 285)", "oklch(38% 0.002 285)", "oklch(50% 0.002 285)", "oklch(62% 0.002 285)", "oklch(74% 0.002 285)", "oklch(85% 0.002 285)", "oklch(95% 0.002 285)"] },
+      "fg": { "role": "neutral", "displayName": "Тёплая бумага", "canonical": "#f4f3ef", "tonalRamp": ["oklch(15% 0.005 95)", "oklch(26% 0.005 95)", "oklch(38% 0.005 95)", "oklch(50% 0.005 95)", "oklch(62% 0.005 95)", "oklch(74% 0.005 95)", "oklch(85% 0.005 95)", "oklch(95% 0.005 95)"] },
+      "fg-muted": { "role": "neutral", "displayName": "Приглушённый", "canonical": "#a6a5a0", "tonalRamp": ["oklch(15% 0.006 100)", "oklch(26% 0.006 100)", "oklch(38% 0.006 100)", "oklch(50% 0.006 100)", "oklch(62% 0.006 100)", "oklch(74% 0.006 100)", "oklch(85% 0.006 100)", "oklch(95% 0.006 100)"] },
+      "fg-subtle": { "role": "neutral", "displayName": "Тихий", "canonical": "#7d7c78", "tonalRamp": ["oklch(15% 0.005 100)", "oklch(26% 0.005 100)", "oklch(38% 0.005 100)", "oklch(50% 0.005 100)", "oklch(62% 0.005 100)", "oklch(74% 0.005 100)", "oklch(85% 0.005 100)", "oklch(95% 0.005 100)"] },
+      "line": { "role": "neutral", "displayName": "Линия", "canonical": "rgb(255 255 255 / 0.08)" },
+      "line-strong": { "role": "neutral", "displayName": "Сильная линия", "canonical": "rgb(255 255 255 / 0.16)" },
+      "accent": { "role": "primary", "displayName": "Янтарь лилий", "canonical": "#f2a33a", "tonalRamp": ["oklch(15% 0.15 70)", "oklch(26% 0.15 70)", "oklch(38% 0.15 70)", "oklch(50% 0.15 70)", "oklch(62% 0.15 70)", "oklch(74% 0.15 70)", "oklch(85% 0.15 70)", "oklch(95% 0.15 70)"] },
+      "accent-soft": { "role": "primary", "displayName": "Светлый янтарь", "canonical": "#f7c77d", "tonalRamp": ["oklch(15% 0.11 80)", "oklch(26% 0.11 80)", "oklch(38% 0.11 80)", "oklch(50% 0.11 80)", "oklch(62% 0.11 80)", "oklch(74% 0.11 80)", "oklch(85% 0.11 80)", "oklch(95% 0.11 80)"] },
+      "accent-ink": { "role": "primary", "displayName": "Тёмный янтарный", "canonical": "#1a1105", "tonalRamp": ["oklch(15% 0.03 75)", "oklch(26% 0.03 75)", "oklch(38% 0.03 75)", "oklch(50% 0.03 75)", "oklch(62% 0.03 75)", "oklch(74% 0.03 75)", "oklch(85% 0.03 75)", "oklch(95% 0.03 75)"] },
+      "danger": { "role": "status", "displayName": "Ошибка", "canonical": "#ff7a6b", "tonalRamp": ["oklch(15% 0.17 28)", "oklch(26% 0.17 28)", "oklch(38% 0.17 28)", "oklch(50% 0.17 28)", "oklch(62% 0.17 28)", "oklch(74% 0.17 28)", "oklch(85% 0.17 28)", "oklch(95% 0.17 28)"] },
+      "success": { "role": "status", "displayName": "Успех", "canonical": "#8fe0b0", "tonalRamp": ["oklch(15% 0.11 158)", "oklch(26% 0.11 158)", "oklch(38% 0.11 158)", "oklch(50% 0.11 158)", "oklch(62% 0.11 158)", "oklch(74% 0.11 158)", "oklch(85% 0.11 158)", "oklch(95% 0.11 158)"] }
+    },
+    "typographyMeta": {
+      "display-xl": { "displayName": "Display XL", "purpose": "Заголовок первого экрана, h1 кейса, 404." },
+      "display-l": { "displayName": "Display L", "purpose": "Заголовки секций (SectionHeader), имя следующего проекта." },
+      "display-m": { "displayName": "Display M", "purpose": "Название проекта на пластине, этапы процесса, имя технологии." },
+      "display-s": { "displayName": "Display S", "purpose": "Вводный абзац кейса, подзаголовки политики." },
+      "body-l": { "displayName": "Body L", "purpose": "Пояснение к заголовку секции, тексты этапов." },
+      "body": { "displayName": "Body", "purpose": "Обычный текст." },
+      "label": { "displayName": "Label", "purpose": "Утилита label: подписи, категории, счётчики, служебные строки. Прописные." },
+      "mono": { "displayName": "Mono", "purpose": "Названия технологий, код и данные." }
+    },
+    "shadows": [
+      { "name": "sheet-edge", "value": "0 -1px 0 rgb(255 255 255 / 0.14), 0 -28px 70px rgb(0 0 0 / 0.75)", "purpose": "Верхняя кромка листа страницы, наезжающего на первый экран (только под pin:)." },
+      { "name": "glass-inset", "value": "inset 0 1px 1px rgb(255 255 255 / 0.1)", "purpose": "Внутренний блик liquid-glass." },
+      { "name": "glass-strong-inset", "value": "inset 0 1px 1px rgb(255 255 255 / 0.08)", "purpose": "Внутренний блик liquid-glass-strong." },
+      { "name": "glass-hover", "value": "inset 0 1px 1px rgb(255 255 255 / 0.25), 0 0 0 1px rgb(255 255 255 / 0.12)", "purpose": "Стеклянная кнопка при наведении." },
+      { "name": "specimen-frame", "value": "0 30px 80px -30px rgb(0 0 0 / 0.9)", "purpose": "Светлый экран живого образца на тёмной сцене." },
+      { "name": "accent-dot-glow", "value": "0 2px 10px rgb(242 163 58 / 0.7)", "purpose": "Точка доступности в первом экране." },
+      { "name": "accent-step-halo", "value": "0 0 0 6px rgb(242 163 58 / 0.15)", "purpose": "Активный шаг процесса." }
+    ],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Основная кривая: появления, наведения, подъём из масок." },
+      { "name": "ease-in-out-quart", "value": "cubic-bezier(0.76, 0, 0.24, 1)", "purpose": "Затвор первого экрана, мобильное меню, переезд обложки." },
+      { "name": "reveal", "value": "1s ease-out-expo, translateY(28px) + opacity", "purpose": "data-reveal по умолчанию." },
+      { "name": "reveal-blur", "value": "1.2s ease-out-expo, translateY(12px) + blur(10px)", "purpose": "data-reveal=\"blur\" для пояснительного текста." },
+      { "name": "reveal-line", "value": "1.5s ease-out-expo, scaleX(0 → 1) слева", "purpose": "data-reveal=\"line\" для волосяных линий." },
+      { "name": "reveal-text", "value": "1.05s ease-out-expo, шаг 45ms на слово", "purpose": "RevealText: слова поднимаются из масок." },
+      { "name": "shutter", "value": "1.7s ease-in-out-quart, задержка 0.1s", "purpose": "Фильм первого экрана открывается горизонтальным затвором." },
+      { "name": "line-rise", "value": "1.25s ease-out-expo", "purpose": "Строки заголовка первого экрана." },
+      { "name": "btn-flood", "value": "0.75s ease-out-expo, scale(0 → 16)", "purpose": "Янтарь разливается из-под диска основной кнопки." },
+      { "name": "btn-rise", "value": "0.6s ease-out-expo, translateY(102% → 0)", "purpose": "Янтарь поднимается в кнопке шапки." },
+      { "name": "marquee", "value": "52s linear infinite; playbackRate = направление × (1 + min(|v| / 450, 6))", "purpose": "Лента дисциплин, скорость от скролла." },
+      { "name": "view-transition-cover", "value": "0.7s ease-in-out-quart", "purpose": "Обложка проекта переезжает в кейс." },
+      { "name": "header-hide", "value": "0.7s ease-out-expo, translateY(-170%)", "purpose": "Шапка уходит при чтении вниз (64px), возвращается при движении вверх (24px)." },
+      { "name": "hero-cover", "value": "scale 1 → 1.14, затемнение 0 → 0.72, текст −16% за первую половину дорожки 200svh", "purpose": "Закреплённый первый экран под наезжающим листом." },
+      { "name": "stack-cover", "value": "scale 1 → 0.93 (origin top), затемнение 0 → 0.66", "purpose": "Накрытая пластина в стопке проектов." }
+    ],
+    "breakpoints": [
+      { "name": "min-360", "value": "360px" },
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" },
+      { "name": "pin", "value": "(min-height: 601px) and (prefers-reduced-motion: no-preference)" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Основная кнопка",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Главное действие (CtaLink). Янтарь разливается из-под диска-стрелки.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><span>Обсудить проект</span><span class=\"ds-btn-primary-disc\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></span></a>",
+      "css": ".ds-btn-primary { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; gap: 12px; padding: 6px 6px 6px 24px; border-radius: 9999px; background: var(--color-fg, #f4f3ef); color: var(--color-ink, #050505); font: 500 14px/1.25 Geist, ui-sans-serif, system-ui, sans-serif; text-decoration: none; transition: scale 0.3s; } .ds-btn-primary::before { content: ''; position: absolute; z-index: -1; top: 50%; right: 6px; width: 36px; height: 36px; margin-top: -18px; border-radius: 999px; background: var(--color-accent, #f2a33a); transform: scale(0); transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover::before, .ds-btn-primary:focus-visible::before { transform: scale(16); } .ds-btn-primary:active { scale: 0.97; } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-accent, #f2a33a); outline-offset: 3px; } .ds-btn-primary-disc { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 9999px; background: var(--color-ink, #050505); color: var(--color-fg, #f4f3ef); } .ds-btn-primary-disc svg { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover .ds-btn-primary-disc svg, .ds-btn-primary:focus-visible .ds-btn-primary-disc svg { transform: rotate(45deg); }"
+    },
+    {
+      "name": "Кнопка шапки",
+      "kind": "button",
+      "refersTo": "button-nav",
+      "description": "Светлая пилюля без диска в плавающей шапке; янтарь поднимается снизу (btn-rise).",
+      "html": "<a class=\"ds-btn-nav\" href=\"#\">Обсудить проект</a>",
+      "css": ".ds-btn-nav { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; padding: 10px 20px; border-radius: 9999px; background: var(--color-fg, #f4f3ef); color: var(--color-ink, #050505); font: 500 14px/1.25 Geist, ui-sans-serif, system-ui, sans-serif; white-space: nowrap; text-decoration: none; transition: scale 0.3s; } .ds-btn-nav::before { content: ''; position: absolute; z-index: -1; inset: 0; background: var(--color-accent, #f2a33a); transform: translate3d(0, 102%, 0); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-nav:hover::before, .ds-btn-nav:focus-visible::before { transform: none; } .ds-btn-nav:active { scale: 0.97; } .ds-btn-nav:focus-visible { outline: 2px solid var(--color-accent, #f2a33a); outline-offset: 3px; }"
+    },
+    {
+      "name": "Стеклянная кнопка",
+      "kind": "button",
+      "refersTo": "button-glass",
+      "description": "Второе действие поверх изображения (liquid-glass). Только над фильмом.",
+      "html": "<div class=\"ds-glass-stage\"><a class=\"ds-btn-glass\" href=\"#\">Смотреть работы</a></div>",
+      "css": ".ds-glass-stage { padding: 24px; border-radius: 16px; background: radial-gradient(80% 120% at 30% 20%, #6b5a3a, #1b1712 60%, #050505); } .ds-btn-glass { position: relative; overflow: hidden; display: inline-flex; align-items: center; padding: 12px 24px; border-radius: 9999px; background: rgb(0 0 0 / 0.25); color: #fff; font: 500 14px/1.25 Geist, ui-sans-serif, system-ui, sans-serif; text-decoration: none; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.1); transition: background-color 0.3s, box-shadow 0.3s, scale 0.3s; } .ds-btn-glass::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.4px; background: linear-gradient(180deg, rgb(255 255 255 / 0.45) 0%, rgb(255 255 255 / 0.15) 20%, rgb(255 255 255 / 0) 40%, rgb(255 255 255 / 0) 60%, rgb(255 255 255 / 0.15) 80%, rgb(255 255 255 / 0.45) 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; } .ds-btn-glass:hover { background: rgb(255 255 255 / 0.1); box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.25), 0 0 0 1px rgb(255 255 255 / 0.12); } .ds-btn-glass:active { scale: 0.97; } .ds-btn-glass:focus-visible { outline: 2px solid var(--color-accent, #f2a33a); outline-offset: 3px; }"
+    },
+    {
+      "name": "Пластина",
+      "kind": "card",
+      "refersTo": "plate",
+      "description": "Непрозрачная панель для проекта, образца, формы: тон ink-2, радиус plate, кольцо 1px, без тени.",
+      "html": "<article class=\"ds-plate\"><div class=\"ds-plate-cover\"><span class=\"ds-plate-badge\"><i></i>Концепт студии</span></div><div class=\"ds-plate-foot\"><h3>Бизнес-платформа</h3><p>Корпоративный цифровой продукт</p></div></article>",
+      "css": ".ds-plate { overflow: hidden; border-radius: var(--radius-plate, 1.75rem); background: var(--color-ink-2, #0b0b0c); box-shadow: 0 0 0 1px rgb(255 255 255 / 0.1); color: var(--color-fg, #f4f3ef); max-width: 420px; } .ds-plate-cover { position: relative; aspect-ratio: 4 / 3; background: radial-gradient(75% 95% at 72% -10%, rgb(255 205 140 / 0.3), transparent 62%), #050505; } .ds-plate-badge { position: absolute; top: 16px; left: 16px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 9999px; background: rgb(0 0 0 / 0.45); color: rgb(255 255 255 / 0.8); outline: 1px dashed rgb(255 255 255 / 0.3); outline-offset: -1px; font: 500 12px/1.2 Geist, ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; } .ds-plate-badge i { width: 6px; height: 6px; border-radius: 9999px; border: 1px solid rgb(255 255 255 / 0.7); } .ds-plate-foot { padding: 20px; border-top: 1px solid var(--color-line, rgb(255 255 255 / 0.08)); } .ds-plate-foot h3 { margin: 0; font-family: 'Noto Serif Display', Georgia, serif; font-variation-settings: 'wdth' 72; font-weight: 350; font-size: 2rem; line-height: 1; letter-spacing: -0.015em; } .ds-plate-foot p { margin: 12px 0 0; color: var(--color-fg-subtle, #7d7c78); font: 500 12px/1.2 Geist, ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Бейдж типа проекта",
+      "kind": "chip",
+      "refersTo": "kind-badge",
+      "description": "Говорит, чем является проект. Горящая янтарная точка только у клиентского; пример — сплошной контур, концепт — пунктирный.",
+      "html": "<div class=\"ds-kind-row\"><span class=\"ds-kind ds-kind-client\"><i></i>Клиентский проект</span><span class=\"ds-kind ds-kind-example\"><i></i>Пример проекта</span><span class=\"ds-kind ds-kind-concept\"><i></i>Концепт студии</span></div>",
+      "css": ".ds-kind-row { display: flex; flex-wrap: wrap; gap: 12px; padding: 16px; background: #1a1a1a; border-radius: 12px; } .ds-kind { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 9999px; background: rgb(0 0 0 / 0.45); color: rgb(255 255 255 / 0.8); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); font: 500 12px/1.2 Geist, ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; } .ds-kind i { width: 6px; height: 6px; border-radius: 9999px; border: 1px solid rgb(255 255 255 / 0.7); } .ds-kind-client i { border: 0; background: var(--color-accent, #f2a33a); } .ds-kind-example { outline: 1px solid rgb(255 255 255 / 0.3); outline-offset: -1px; } .ds-kind-concept { outline: 1px dashed rgb(255 255 255 / 0.3); outline-offset: -1px; }"
+    },
+    {
+      "name": "Чип выбора",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Радио-выбор в форме (ChoiceGroup): контурная пилюля 44px, выбранная залита светлым.",
+      "html": "<div class=\"ds-chip-row\"><label class=\"ds-chip\"><input type=\"radio\" name=\"ds-type\" checked>Сайт</label><label class=\"ds-chip\"><input type=\"radio\" name=\"ds-type\">Интернет-магазин</label><label class=\"ds-chip\"><input type=\"radio\" name=\"ds-type\">3D / WebGL</label></div>",
+      "css": ".ds-chip-row { display: flex; flex-wrap: wrap; gap: 8px; } .ds-chip { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 9999px; border: 1px solid var(--color-line-strong, rgb(255 255 255 / 0.16)); color: var(--color-fg-muted, #a6a5a0); font: 400 14px/1 Geist, ui-sans-serif, system-ui, sans-serif; cursor: pointer; user-select: none; transition: background-color 0.3s, border-color 0.3s, color 0.3s, scale 0.3s; } .ds-chip input { position: absolute; opacity: 0; pointer-events: none; } .ds-chip:hover { border-color: rgb(244 243 239 / 0.5); background: rgb(255 255 255 / 0.04); color: var(--color-fg, #f4f3ef); } .ds-chip:has(input:checked) { border-color: var(--color-fg, #f4f3ef); background: var(--color-fg, #f4f3ef); color: var(--color-ink, #050505); } .ds-chip:has(input:focus-visible) { outline: 2px solid var(--color-accent, #f2a33a); outline-offset: 3px; } .ds-chip:active { scale: 0.97; }"
+    },
+    {
+      "name": "Поле ввода",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Поле формы: подпись label, прозрачный фон, нижнее подчёркивание; в фокусе оно янтарное и толще.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-name\">Имя <span>*</span></label><input id=\"ds-name\" type=\"text\" placeholder=\"Как к вам обращаться\"></div>",
+      "css": ".ds-field { max-width: 320px; } .ds-field label { display: block; color: var(--color-fg-subtle, #7d7c78); font: 500 12px/1.2 Geist, ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; } .ds-field label span { color: var(--color-accent, #f2a33a); } .ds-field input { display: block; width: 100%; margin-top: 8px; padding: 12px 0; border: 0; border-bottom: 1px solid var(--color-line-strong, rgb(255 255 255 / 0.16)); background: transparent; color: var(--color-fg, #f4f3ef); caret-color: var(--color-accent, #f2a33a); font: 400 18px/1.5 Geist, ui-sans-serif, system-ui, sans-serif; transition: border-color 0.3s, box-shadow 0.3s; } .ds-field input::placeholder { color: rgb(125 124 120 / 0.6); } .ds-field input:hover { border-bottom-color: rgb(244 243 239 / 0.4); } .ds-field input:focus { outline: none; border-bottom-color: var(--color-accent, #f2a33a); box-shadow: 0 1px 0 0 var(--color-accent, #f2a33a); }"
+    },
+    {
+      "name": "Плавающая шапка",
+      "kind": "nav",
+      "description": "Стеклянная пилюля навигации: логотип, ссылки, основная кнопка. Плотное стекло после 48px прокрутки.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-logo\">Umbra</span><ul><li><a class=\"ds-nav-active\" href=\"#\">Работы</a></li><li><a href=\"#\">Услуги</a></li><li><a href=\"#\">Процесс</a></li></ul><a class=\"ds-nav-cta\" href=\"#\">Обсудить проект</a></nav>",
+      "css": ".ds-nav { position: relative; overflow: hidden; display: flex; align-items: center; gap: 24px; padding: 10px 10px 10px 24px; border-radius: 9999px; background: rgb(10 10 11 / 0.8); -webkit-backdrop-filter: blur(20px) saturate(140%); backdrop-filter: blur(20px) saturate(140%); box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.08); font: 500 14px/1.25 Geist, ui-sans-serif, system-ui, sans-serif; } .ds-nav::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(180deg, rgb(255 255 255 / 0.28) 0%, rgb(255 255 255 / 0.06) 30%, rgb(255 255 255 / 0) 60%, rgb(255 255 255 / 0.1) 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; } .ds-nav-logo { color: #fff; font-size: 18px; font-weight: 600; letter-spacing: -0.02em; } .ds-nav ul { display: flex; flex: 1; margin: 0; padding: 0; list-style: none; } .ds-nav ul a { display: block; padding: 8px 14px; border-radius: 9999px; color: rgb(255 255 255 / 0.7); text-decoration: none; transition: color 0.2s, background-color 0.2s; } .ds-nav ul a:hover { background: rgb(255 255 255 / 0.05); color: #fff; } .ds-nav ul a.ds-nav-active { background: rgb(255 255 255 / 0.08); color: #fff; } .ds-nav a:focus-visible { outline: 2px solid var(--color-accent, #f2a33a); outline-offset: 3px; } .ds-nav-cta { padding: 10px 20px; border-radius: 9999px; background: var(--color-fg, #f4f3ef); color: var(--color-ink, #050505); text-decoration: none; white-space: nowrap; }"
+    },
+    {
+      "name": "Строка услуги",
+      "kind": "custom",
+      "description": "Линованная строка: заголовок антиквой, диск-стрелка; при наведении заголовок сдвигается, по низу бежит янтарная линия, диск заливается.",
+      "html": "<a class=\"ds-row\" href=\"#\"><span class=\"ds-row-title\">Интернет-магазины</span><span class=\"ds-row-disc\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a>",
+      "css": ".ds-row { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 0; border-top: 1px solid var(--color-line-strong, rgb(255 255 255 / 0.16)); color: var(--color-fg, #f4f3ef); text-decoration: none; } .ds-row::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--color-accent, #f2a33a); transform: scaleX(0); transform-origin: left; transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); } .ds-row:hover::after, .ds-row:focus-visible::after { transform: scaleX(1); } .ds-row-title { font-family: 'Noto Serif Display', Georgia, serif; font-variation-settings: 'wdth' 72; font-weight: 350; font-size: 2.5rem; line-height: 0.95; letter-spacing: -0.015em; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); } .ds-row:hover .ds-row-title, .ds-row:focus-visible .ds-row-title { transform: translateX(12px); } .ds-row-disc { display: grid; place-items: center; flex-shrink: 0; width: 48px; height: 48px; border-radius: 9999px; border: 1px solid var(--color-line-strong, rgb(255 255 255 / 0.16)); color: var(--color-fg-muted, #a6a5a0); transition: background-color 0.5s, border-color 0.5s, color 0.5s; } .ds-row-disc svg { transform: rotate(-45deg); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-row:hover .ds-row-disc, .ds-row:focus-visible .ds-row-disc { border-color: var(--color-accent, #f2a33a); background: var(--color-accent, #f2a33a); color: var(--color-accent-ink, #1a1105); } .ds-row:hover .ds-row-disc svg, .ds-row:focus-visible .ds-row-disc svg { transform: rotate(0); } .ds-row:focus-visible { outline: 2px solid var(--color-accent, #f2a33a); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Тёмный кинозал",
+    "overview": "Сайт — тёмная комната с одним фильмом и одним тёплым источником света. Почти чёрный фон, тёплый белый текст и единственный янтарь, взятый из лилий в ролике первого экрана. Голос заголовков — узкая светлая антиква с курсивом; интерфейс говорит нейтральным гротеском. Это стандарт жанра (тёмный кинематографичный сайт студии), выбранный пользователем и доведённый по ремеслу, а не заменённый.\n\nПлотность низкая: одна мысль на экран, крупный заголовок слева, пояснение отвечает ему справа и ниже. Глубина строится не тенями, а слоями: фильм, лист страницы, наезжающий на него, пластины проектов, встающие друг на друга. У каждой секции своя механика скролла; общая грамматика движения одна — `--ease-out-expo`, подъём из масок, раскрытие клипом.\n\nВсё движение снимается при `prefers-reduced-motion: reduce`: страница остаётся полной и читаемой в конечных состояниях.",
+    "keyCharacteristics": [
+      "Почти чёрная комната (`--color-ink`) и один янтарный акцент (`--color-accent`).",
+      "Антиква Noto Serif Display, суженная осью `wdth` до 72, вес 350, курсив для смыслового ударения.",
+      "Пластины: непрозрачные панели `--color-ink-2` с радиусом `--radius-plate` и кольцом 1px.",
+      "Жидкое стекло только на плавающих элементах управления.",
+      "Закреплённые сцены под вариантом `pin:`; без него — обычный поток.",
+      "Плёночное зерно поверх всего, волосяные линии 8–16 % белого.",
+      "Интерфейс честно подписывает, чем является каждый проект."
+    ],
+    "rules": [
+      { "name": "The One Amber Rule", "body": "Янтарь — единственный акцент. Он означает состояние или действие (фокус, наведение, прогресс, активность, доступность) и не красит заголовки и фоны секций. В покое экран почти без янтаря; он появляется в ответ.", "section": "colors" },
+      { "name": "The Status-Only Rule", "body": "`--color-danger` и `--color-success` — только для статуса (ошибка, успех, «живое»). Как декоративные цвета не применяются.", "section": "colors" },
+      { "name": "The Serif Speaks Rule", "body": "Антиква — только заголовки и крупные заявления. Интерфейс, кнопки, подписи и текст — Geist.", "section": "typography" },
+      { "name": "The Mono Is Data Rule", "body": "Моноширинный шрифт — только названия технологий, код и данные. Подписи и метки набираются утилитой `label` в Geist.", "section": "typography" },
+      { "name": "The Headline Stands Alone Rule", "body": "У заголовка секции нет надстрочной подписи: `SectionHeader` — это заголовок и ответный абзац, больше ничего.", "section": "typography" },
+      { "name": "The Flat Plate Rule", "body": "Пластина не отбрасывает тень. Её отделяют тон `--color-ink-2` и кольцо 1px.", "section": "elevation" },
+      { "name": "The Glass Floats Rule", "body": "Жидкое стекло — только на плавающих элементах управления (шапка, кнопки поверх фильма). Панели с содержимым непрозрачны.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do собирайте заголовки утилитой `font-serif` целиком (`\"wdth\" 72`, вес 350) и берите размер из шкалы `--text-display-*`.",
+      "Do ставьте курсив на одно-два слова в конце заголовка через `*звёздочки*` в `RevealText`.",
+      "Do кладите содержимое на пластину: `--color-ink-2`, `--radius-plate`, кольцо `white/10`, без тени.",
+      "Do используйте `label` (Geist, 0.75rem, 500, 0.08em, прописные) для подписей и служебных строк.",
+      "Do появляйте блоки через `data-reveal` и `RevealText`; новый `IntersectionObserver` на элемент не нужен.",
+      "Do оборачивайте закреплённые сцены в `pin:` и оставляйте под ним обычный поток как запасной вид.",
+      "Do давайте каждому интерактивному элементу видимый фокус: обводка 2px `--color-accent` с отступом 3px или внутреннее кольцо у растянутых ссылок.",
+      "Do подписывайте проект его типом через `KindBadge` везде, где он показан.",
+      "Do анимируйте на `--ease-out-expo` (ответ, появление) и `--ease-in-out-quart` (затвор, меню, переезд обложки); в JS — `ease` из `src/lib/motion.ts`."
+    ],
+    "donts": [
+      "Don't вводите второй акцентный цвет и не красьте янтарём заголовки или фоны секций.",
+      "Don't кладите жидкое стекло на панели с содержимым: оно только на плавающих элементах управления.",
+      "Don't набирайте подписи моноширинным шрифтом: он для названий технологий, кода и данных.",
+      "Don't ставьте подпись над заголовком секции.",
+      "Don't давайте пластинам тени или второй радиус; строкам и спискам — фон и скругление.",
+      "Don't показывайте на обложке проекта нарисованный интерфейс, которого не существует.",
+      "Don't зажигайте янтарную точку в бейдже проекта, пока его `kind` не `client`.",
+      "Don't прячьте содержимое за движением: при сокращённом движении и без JavaScript всё должно быть видно.",
+      "Don't меняйте запрос `pin:` в одном месте: CSS-вариант и обе константы `PIN_QUERY` обязаны совпадать."
+    ]
+  }
+}

@@ -77,6 +77,7 @@ export function SiteFooter() {
         <div className="label mt-8 flex flex-col gap-4 border-t border-line pt-6 text-fg-subtle md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {siteConfig.legalName}
+            {siteConfig.placeholderContacts && " · название и контакты временные"}
           </p>
           <p className="flex items-center gap-2">
             <span className="size-1.5 rounded-full bg-accent" aria-hidden="true" />

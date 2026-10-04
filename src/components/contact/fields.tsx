@@ -37,7 +37,7 @@ function controlState(error?: string) {
   // Focus: the underline thickens (inset shadow) and brightens — visible without a layout shift.
   return error
     ? "border-danger focus:border-danger focus:shadow-[0_1px_0_0_var(--color-danger)]"
-    : "border-line-strong hover:border-fg/40 focus:border-fg focus:shadow-[0_1px_0_0_var(--color-fg)]";
+    : "border-line-strong hover:border-fg/40 focus:border-accent focus:shadow-[0_1px_0_0_var(--color-accent)]";
 }
 
 export function TextField({
@@ -114,7 +114,7 @@ export function TextAreaField({
       />
       <div className="flex items-start justify-between gap-4">
         <FieldError id={errorId} message={error} />
-        <p id={hintId} className="mt-2 shrink-0 font-mono text-xs text-fg-subtle">
+        <p id={hintId} className="mt-2 shrink-0 text-xs text-fg-subtle tabular-nums">
           {hint}
         </p>
       </div>
@@ -158,12 +158,12 @@ export function ChoiceGroup<T extends string>({
               key={option.value}
               htmlFor={id}
               className={cn(
-                "relative inline-flex min-h-11 items-center rounded-full border px-4 text-sm transition-all duration-300 select-none has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-3 has-[:focus-visible]:outline-accent",
+                "relative inline-flex min-h-11 items-center rounded-full border px-4 text-sm transition-[background-color,border-color,color,scale] duration-300 select-none active:scale-[0.97] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-3 has-[:focus-visible]:outline-accent",
                 checked
                   ? "border-fg bg-fg text-ink"
                   : error
                     ? "border-danger/60 text-fg-muted hover:text-fg"
-                    : "border-line-strong text-fg-muted hover:border-fg/50 hover:text-fg",
+                    : "border-line-strong text-fg-muted hover:border-fg/50 hover:bg-white/[0.04] hover:text-fg",
               )}
             >
               <input

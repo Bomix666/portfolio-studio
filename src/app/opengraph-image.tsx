@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 export const alt = siteConfig.title;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-// Нужно для статической выгрузки (GitHub Pages); на сервере поведение не меняется.
+// Нужно для статической выгрузки (GitHub Pages); на сервере поведение не меняется.
 export const dynamic = "force-static";
 
 /**

@@ -16,6 +16,7 @@ export function Reveal({
   children,
   delay = 0,
   y,
+  variant = "",
   className,
 }: {
   children: ReactNode;
@@ -23,12 +24,14 @@ export function Reveal({
   delay?: number;
   /** Lift distance in px. */
   y?: number;
+  /** "" lifts, "blur" comes into focus, "line" draws a hairline (see globals.css). */
+  variant?: "" | "blur" | "line";
   className?: string;
 }) {
   const style: RevealStyle = { "--reveal-delay": `${Math.round(delay * 1000)}ms` };
   if (y !== undefined) style["--reveal-y"] = `${y}px`;
   return (
-    <div data-reveal="" className={className} style={style}>
+    <div data-reveal={variant} className={className} style={style}>
       {children}
     </div>
   );

@@ -7,6 +7,13 @@ const FADE_MS = 500;
 const FADE_OUT_BEFORE_END_S = 0.55;
 const RESTART_DELAY_MS = 100;
 
+/**
+ * Framing shared by the poster and the film. The frame is pushed down so the subject sits
+ * between the title above and the actions below — further on phones, where the offer line
+ * also lives under the title (see hero.tsx).
+ */
+const FRAME = "absolute inset-0 h-full w-full translate-y-[27%] object-cover md:translate-y-[17%]";
+
 type Variant = "large" | "small";
 
 /**
@@ -64,27 +71,25 @@ export function HeroVideo() {
     setVariant(wide ? "large" : "small");
   }, []);
 
-  // Pause when the hero is off-screen or the tab is hidden.
+  // Pause once the page has covered the hero (one screen of scroll — it stays pinned underneath,
+  // so an IntersectionObserver would never see it leave) or when the tab is hidden.
   useEffect(() => {
     const video = videoRef.current;
     if (!video || stillOnly || !variant) return;
 
-    let inView = true;
+    let playing: boolean | null = null;
     const sync = () => {
-      if (inView && !document.hidden) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
+      const visible = window.scrollY < window.innerHeight && !document.hidden;
+      if (visible === playing) return;
+      playing = visible;
+      if (visible) video.play().catch(() => {});
+      else video.pause();
     };
-    const io = new IntersectionObserver(([entry]) => {
-      inView = !!entry?.isIntersecting;
-      sync();
-    });
-    io.observe(video);
+    sync();
+    window.addEventListener("scroll", sync, { passive: true });
     document.addEventListener("visibilitychange", sync);
     return () => {
-      io.disconnect();
+      window.removeEventListener("scroll", sync);
       document.removeEventListener("visibilitychange", sync);
     };
   }, [stillOnly, variant]);
@@ -146,7 +151,7 @@ export function HeroVideo() {
       aria-hidden="true"
       fetchPriority="high"
       decoding="async"
-      className="absolute inset-0 h-full w-full translate-y-[17%] object-cover transition-opacity duration-700"
+      className={`${FRAME} transition-opacity duration-700`}
       style={{ opacity: stillOnly ? 1 : posterRetired ? 0 : 0.42 }}
     />
   );
@@ -158,7 +163,7 @@ export function HeroVideo() {
       {!posterRetired && poster}
       <video
       ref={videoRef}
-      className="absolute inset-0 h-full w-full translate-y-[17%] object-cover"
+      className={FRAME}
       style={{ opacity: 0 }}
       muted
       playsInline

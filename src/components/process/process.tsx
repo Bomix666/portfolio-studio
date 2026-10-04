@@ -40,8 +40,6 @@ export function Process() {
       <div className="container-x">
         <SectionHeader
           id="process-title"
-          index="05"
-          label="Процесс"
           title="Шесть этапов. *Никаких чёрных ящиков.*"
           intro="Вы видите работу на каждом шаге — и каждый этап заканчивается тем, что можно посмотреть, протестировать или запустить."
         />
@@ -110,9 +108,9 @@ export function Process() {
                       {s.title}
                     </h3>
                     <p className="mt-4 max-w-lg text-body-l text-fg-muted">{s.body}</p>
-                    <ul className="mt-6 flex flex-wrap gap-2" aria-label={`${s.title} — результаты этапа`}>
+                    <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-1" aria-label={`${s.title} — результаты этапа`}>
                       {s.output.map((o) => (
-                        <li key={o} className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-fg-muted">
+                        <li key={o} className="text-[0.8125rem] text-fg-subtle">
                           {o}
                         </li>
                       ))}

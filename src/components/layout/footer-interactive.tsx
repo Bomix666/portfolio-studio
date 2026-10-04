@@ -7,7 +7,8 @@ import { Magnetic } from "@/components/ui/magnetic";
 
 /**
  * Giant outlined wordmark; a soft spotlight follows the cursor and "lights" the letters.
- * Touch devices get a static glow. Purely decorative (the name is in the logo and © line).
+ * Without a cursor it stays an outline — the same mark at every width. Purely decorative
+ * (the name is in the logo and © line).
  */
 export function FooterWordmark({ text }: { text: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -56,11 +57,11 @@ export function FooterWordmark({ text }: { text: string }) {
       onPointerLeave={onLeave}
       className="relative mt-16 overflow-hidden select-none [--r:0%] [--x:50%] [--y:60%] md:mt-24"
     >
-      <p className={`${type} text-transparent [-webkit-text-stroke:1px_rgb(255_255_255/0.16)]`}>
+      <p className={`${type} text-transparent [-webkit-text-stroke:1px_rgb(255_255_255/0.34)]`}>
         <span ref={measureRef}>{text}</span>
       </p>
       <p
-        className={`${type} absolute inset-0 text-fg [mask-image:radial-gradient(circle_at_var(--x)_var(--y),black_0%,transparent_var(--r))] pointer-coarse:[mask-image:linear-gradient(to_top,rgb(0_0_0/0.4),transparent_75%)]`}
+        className={`${type} absolute inset-0 text-fg [mask-image:radial-gradient(circle_at_var(--x)_var(--y),black_0%,transparent_var(--r))]`}
       >
         {text}
       </p>
@@ -78,7 +79,7 @@ export function BackToTop() {
           scrollTo(0, { offset: 0 });
           document.getElementById("main")?.focus({ preventScroll: true });
         }}
-        className="liquid-glass group grid size-16 place-items-center rounded-full text-fg transition-colors hover:bg-white/5"
+        className="group grid size-16 place-items-center rounded-full border border-line-strong text-fg transition-[background-color,border-color,color,scale] duration-500 ease-out-expo hover:border-accent hover:bg-accent hover:text-accent-ink active:scale-95"
         aria-label="Наверх"
       >
         <ArrowUp

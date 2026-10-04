@@ -1,15 +1,25 @@
 /**
  * Избранные работы.
  *
- * `kind` отделяет реальные клиентские проекты от концептов студии — интерфейс подписывает их
- * по-разному. Никаких результатов, метрик и отзывов — добавляйте их, только если они реальные.
+ * `kind` отделяет подтверждённые клиентские проекты (`client`) от концептов студии (`concept`).
+ * `example` — проект назван как пример, но его статус не подтверждён: интерфейс не называет
+ * его клиентским. Никаких результатов, метрик и отзывов — добавляйте их, только если они реальные.
  *
  * Визуал: у каждого проекта есть обложка, собранная в коде (components/work/covers). Чтобы
  * поставить настоящие скриншоты или видео, заполните `media` — они заменят обложку везде.
  */
 
-export type ProjectKind = "client" | "concept";
-export type CoverId = "global-effects" | "mrak8" | "business-platform" | "webgl";
+import { asset } from "./site";
+
+export type ProjectKind = "client" | "concept" | "example";
+
+/** Подпись типа проекта — везде, где проект показан. */
+export const kindLabel: Record<ProjectKind, string> = {
+  client: "Клиентский проект",
+  concept: "Концепт студии",
+  example: "Пример проекта",
+};
+export type CoverId = "global-effects" | "mrak8" | "business-platform";
 
 export interface ProjectMedia {
   type: "image" | "video";
@@ -29,7 +39,8 @@ export interface Project {
   focus: { title: string; body: string }[];
   services: string[];
   stack: string[];
-  cover: CoverId;
+  /** Типографический постер — используется, пока не задано `media`. */
+  cover?: CoverId;
   media?: ProjectMedia;
   /** Подпись в кастомном курсоре при наведении. */
   cursorLabel: string;
@@ -40,7 +51,7 @@ export const projects: Project[] = [
     slug: "global-effects",
     index: "01",
     title: "Global Effects",
-    kind: "client", // PLACEHOLDER — подтвердите, что это опубликованный клиентский проект
+    kind: "example", // PLACEHOLDER — поставьте "client", когда подтвердите, что это опубликованный клиентский проект
     category: "Промышленные и ивент-технологии",
     summary: "Редизайн премиального сайта для компании в сфере промышленных и ивент-технологий.",
     // PLACEHOLDER — замените тексты ниже реальным кейсом
@@ -69,7 +80,7 @@ export const projects: Project[] = [
     slug: "mrak8",
     index: "02",
     title: "Mrak8",
-    kind: "client", // PLACEHOLDER — подтвердите, что это опубликованный клиентский проект
+    kind: "example", // PLACEHOLDER — поставьте "client", когда подтвердите, что это опубликованный клиентский проект
     category: "Интернет-магазин одежды и стритвира",
     summary: "Экспериментальный интернет-магазин для бренда одежды и стритвира.",
     // PLACEHOLDER — замените тексты ниже реальным кейсом
@@ -147,7 +158,12 @@ export const projects: Project[] = [
     ],
     services: ["3D / WebGL", "Креативная разработка", "Моушн-дизайн"],
     stack: ["Three.js", "React Three Fiber", "WebGL", "TypeScript"],
-    cover: "webgl",
+    // Настоящий кадр из 3D-сцены этого сайта (секция «О студии»), не иллюстрация.
+    media: {
+      type: "image",
+      src: asset("/media/work-3d.webp"),
+      alt: "Кадр из 3D-сцены студии: стеклянные слои интерфейса в кольце света",
+    },
     cursorLabel: "ИЗУЧИТЬ",
   },
 ];

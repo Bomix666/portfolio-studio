@@ -145,11 +145,7 @@ export function About() {
 
         {/* Copy */}
         <div className="container-x relative flex h-full flex-col justify-between pt-28 pb-10 md:pt-32 lg:pb-14">
-          <p className="label flex items-center gap-3 text-fg-subtle">
-            <span className="text-accent">01</span>
-            <span className="h-px w-8 bg-line-strong" aria-hidden="true" />
-            <span>О студии — философия</span>
-          </p>
+          <div aria-hidden="true" className="max-lg:hidden" />
 
           <div className="max-lg:mt-auto lg:max-w-[46%]">
             <h2
@@ -180,10 +176,9 @@ export function About() {
 
           <div className="mt-8 grid gap-6 lg:mt-0 lg:grid-cols-12 lg:items-end">
             <ul className="grid grid-cols-3 gap-3 sm:gap-6 lg:col-span-7">
-              {PILLARS.map((pillar, i) => (
+              {PILLARS.map((pillar) => (
                 <Pillar key={pillar.title} progress={scrollYProgress} at={pillar.at} still={reduced}>
-                  <span className="label text-accent">0{i + 1}</span>
-                  <span className="mt-2 block font-serif text-xl text-fg sm:text-2xl">{pillar.title}</span>
+                  <span className="block font-serif text-xl text-fg sm:text-2xl">{pillar.title}</span>
                   <span className="mt-1 hidden text-sm leading-relaxed text-fg-muted sm:block">{pillar.body}</span>
                 </Pillar>
               ))}
@@ -210,9 +205,18 @@ function Word({
   italic: boolean;
 }) {
   const opacity = useRange(progress, range, [0.16, 1]);
+  // Reduced motion: a plain element. Swapping the motion value for a static style on the same
+  // m.span can leave the server-rendered dim opacity inline; a different element can't.
+  if (still) {
+    return (
+      <>
+        <span className={cn(italic && "italic")}>{children}</span>{" "}
+      </>
+    );
+  }
   return (
     <>
-      <m.span style={{ opacity: still ? 1 : opacity }} className={cn(italic && "italic")}>
+      <m.span style={{ opacity }} className={cn(italic && "italic")}>
         {children}
       </m.span>{" "}
     </>
@@ -232,8 +236,9 @@ function Pillar({
 }) {
   const opacity = useRange(progress, [at - 0.06, at], [0.25, 1]);
   const y = useRange(progress, [at - 0.06, at], [10, 0]);
+  if (still) return <li className="border-t border-line-strong pt-4">{children}</li>;
   return (
-    <m.li style={{ opacity: still ? 1 : opacity, y: still ? 0 : y }} className="border-t border-line-strong pt-4">
+    <m.li style={{ opacity, y }} className="border-t border-line-strong pt-4">
       {children}
     </m.li>
   );

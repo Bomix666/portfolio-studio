@@ -132,11 +132,8 @@ export function MockSite({
 
       <section className="grid gap-8 px-6 pt-4 pb-10 @[700px]:grid-cols-[1.05fr_1fr] @[700px]:items-center @[700px]:gap-12 @[700px]:px-12 @[700px]:pt-10 @[700px]:pb-16 [transform-style:preserve-3d]">
         <Annot mode={mode} hotspot={2} token="Type / Display" depth={1.6}>
-          <p {...anim(160, "text-[12px] tracking-[0.18em] text-[#1d1a16]/55 uppercase")}>
-            Новая коллекция — осень
-          </p>
           <h4
-            {...anim(220, "mt-4 font-serif text-[46px] leading-[0.95] tracking-[-0.02em] @[700px]:text-[64px] @[1100px]:text-[80px]")}
+            {...anim(220, "font-serif text-[46px] leading-[0.95] tracking-[-0.02em] @[700px]:text-[64px] @[1100px]:text-[80px]")}
           >
             Предметы для
             <br />

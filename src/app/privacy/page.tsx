@@ -59,8 +59,7 @@ export default function PrivacyPage() {
     <div className="container-x pt-36 pb-24 md:pt-44">
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-6">
         <header className="lg:col-span-5">
-          <p className="label text-fg-subtle">Документы</p>
-          <h1 className="mt-6 max-w-xl font-serif text-display-m break-words hyphens-auto text-fg">
+          <h1 className="max-w-xl font-serif text-display-m break-words hyphens-auto text-fg">
             Политика конфиден{"­"}циальности
           </h1>
           <p className="label mt-6 text-fg-subtle">Обновлено — {LAST_UPDATED}</p>

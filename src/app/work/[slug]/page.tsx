@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ViewTransition } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -7,10 +8,19 @@ import { Reveal, RevealText } from "@/components/ui/reveal";
 import { SmartLink } from "@/components/ui/smart-link";
 import { ProjectVisual } from "@/components/work/covers";
 import { KindBadge } from "@/components/work/kind-badge";
-import { getProject, projects } from "@/config/projects";
+import { getProject, kindLabel, projects, type ProjectKind } from "@/config/projects";
 import { siteConfig } from "@/config/site";
 
 export const dynamicParams = false;
+
+const kindNote: Record<ProjectKind, string> = {
+  client:
+    "Полный кейс — процесс, ключевые решения и результаты — покажем по запросу. С удовольствием проведём вас по нему на созвоне.",
+  concept:
+    "Это собственный концепт студии, а не клиентский проект. Мы делаем концепты, чтобы проверять идеи до того, как они понадобятся клиентам.",
+  example:
+    "Проект показан как пример работы. Подробный кейс и статус публикации уточняются.",
+};
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -50,40 +60,38 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </SmartLink>
         </Reveal>
 
-        <div className="mt-12 grid gap-8 md:mt-16 md:grid-cols-12 md:gap-6">
-          <Reveal className="flex items-center gap-4 md:col-span-3 md:flex-col md:items-start">
-            <span className="label text-accent">{project.index}</span>
-            <KindBadge kind={project.kind} />
+        <div className="mt-10 md:mt-14">
+          <RevealText as="h1" id="case-title" text={project.title} className="font-serif text-display-xl text-fg" />
+          <Reveal variant="blur" delay={0.2} className="mt-8 grid gap-6 md:mt-10 md:grid-cols-12">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3 md:col-span-5 md:self-start">
+              <KindBadge kind={project.kind} />
+              <p className="label text-fg-subtle">{project.category}</p>
+            </div>
+            <p className="max-w-2xl text-body-l text-fg-muted md:col-span-6 md:col-start-7">{project.summary}</p>
           </Reveal>
-          <div className="md:col-span-9">
-            <RevealText as="h1" id="case-title" text={project.title} className="font-serif text-display-xl text-fg" />
-            <Reveal delay={0.2}>
-              <p className="label mt-6 text-fg-subtle">{project.category}</p>
-              <p className="mt-6 max-w-2xl text-body-l text-fg-muted">{project.summary}</p>
-            </Reveal>
-          </div>
         </div>
       </div>
 
-      <Reveal delay={0.1} className="container-x mt-16 md:mt-24">
-        <div className="relative aspect-[4/3] overflow-hidden bg-ink-2 md:aspect-[16/8]">
-          <ProjectVisual project={project} />
-        </div>
-      </Reveal>
+      {/* Shares its name with the plate on the home page: the cover travels here on navigation. */}
+      <div className="container-x mt-14 md:mt-20">
+        <ViewTransition name={`cover-${project.slug}`} share="cover" default="none">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-plate bg-ink-2 ring-1 ring-white/10 md:aspect-[16/8]">
+            <ProjectVisual project={project} />
+          </div>
+        </ViewTransition>
+      </div>
 
       <div className="container-x section-y grid gap-14 md:grid-cols-12 md:gap-6">
         <div className="md:col-span-7">
           <Reveal>
-            <p className="label text-fg-subtle">Обзор</p>
-            <p className="mt-6 font-serif text-display-s text-fg">{project.overview}</p>
+            <p className="font-serif text-display-s text-fg">{project.overview}</p>
           </Reveal>
 
           <div className="mt-16 grid gap-10 sm:grid-cols-3 sm:gap-6">
             {project.focus.map((f, i) => (
               <Reveal key={f.title} delay={i * 0.08}>
                 <div className="border-t border-line-strong pt-5">
-                  <p className="label text-accent">0{i + 1}</p>
-                  <h2 className="mt-3 font-serif text-2xl text-fg">{f.title}</h2>
+                  <h2 className="font-serif text-2xl text-fg">{f.title}</h2>
                   <p className="mt-3 text-sm leading-relaxed text-fg-muted">{f.body}</p>
                 </div>
               </Reveal>
@@ -95,7 +103,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <dl className="divide-y divide-line border-y border-line">
             <div className="grid grid-cols-3 gap-4 py-5">
               <dt className="label text-fg-subtle">Тип</dt>
-              <dd className="col-span-2 text-fg">{project.kind === "client" ? "Клиентский проект" : "Концепт студии"}</dd>
+              <dd className="col-span-2 text-fg">{kindLabel[project.kind]}</dd>
             </div>
             <div className="grid grid-cols-3 gap-4 py-5">
               <dt className="label text-fg-subtle">Задачи</dt>
@@ -109,9 +117,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             </div>
             <div className="grid grid-cols-3 gap-4 py-5">
               <dt className="label text-fg-subtle">Стек</dt>
-              <dd className="col-span-2 flex flex-wrap gap-2">
+              <dd className="col-span-2 flex flex-wrap gap-x-4 gap-y-1">
                 {project.stack.map((s) => (
-                  <span key={s} className="rounded-full border border-line-strong px-3 py-1 font-mono text-[11px] text-fg-muted">
+                  <span key={s} className="font-mono text-xs text-fg-muted">
                     {s}
                   </span>
                 ))}
@@ -119,18 +127,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             </div>
           </dl>
 
-          <div className="mt-10 rounded-3xl border border-line bg-ink-2 p-6">
-            {project.kind === "client" ? (
-              <p className="text-sm leading-relaxed text-fg-muted">
-                Полный кейс — процесс, ключевые решения и результаты — покажем по запросу. С удовольствием
-                проведём вас по нему на созвоне.
-              </p>
-            ) : (
-              <p className="text-sm leading-relaxed text-fg-muted">
-                Это собственный концепт студии, а не клиентский проект. Мы делаем концепты, чтобы проверять
-                идеи до того, как они понадобятся клиентам.
-              </p>
-            )}
+          <div className="mt-10 rounded-plate bg-ink-2 p-6 ring-1 ring-white/10">
+            <p className="text-sm leading-relaxed text-fg-muted">{kindNote[project.kind]}</p>
             <div className="mt-6">
               <CtaLink href="/#contact">Обсудить проект</CtaLink>
             </div>
@@ -145,12 +143,12 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           className="group container-x flex flex-col gap-6 py-16 md:flex-row md:items-end md:justify-between md:py-24"
         >
           <div>
-            <p className="label text-fg-subtle">Следующий проект — {next.index}</p>
+            <p className="label text-fg-subtle">Следующий проект</p>
             <p className="mt-4 font-serif text-display-l text-fg transition-transform duration-700 ease-out-expo group-hover:translate-x-3">
               {next.title}
             </p>
           </div>
-          <span className="grid size-16 shrink-0 place-items-center rounded-full border border-line-strong text-fg transition-all duration-500 ease-out-expo group-hover:bg-fg group-hover:text-ink">
+          <span className="grid size-16 shrink-0 place-items-center rounded-full border border-line-strong text-fg transition-[background-color,border-color,color] duration-500 ease-out-expo group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink">
             <ArrowUpRight aria-hidden="true" className="size-6 transition-transform duration-500 group-hover:rotate-45" />
           </span>
         </Link>

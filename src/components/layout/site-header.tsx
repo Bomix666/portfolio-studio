@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, m } from "motion/react";
+import { AnimatePresence, m, useScroll } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSmoothScroll } from "@/components/providers/smooth-scroll";
@@ -18,13 +18,28 @@ const SECTION_IDS = navItems.map((item) => item.href.split("#")[1]!);
 export function SiteHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const active = useActiveSection(SECTION_IDS);
   const { stop, start } = useSmoothScroll();
+  const { scrollYProgress } = useScroll();
 
+  // The bar steps out of the way while reading down and returns on the first move back up.
+  // Travel is accumulated per direction, so a few pixels of smoothing jitter can't flip it.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48);
+    let last = window.scrollY;
+    let travel = 0;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 48);
+      const delta = y - last;
+      last = y;
+      if (delta > 0 !== travel > 0) travel = 0;
+      travel += delta;
+      if (y < window.innerHeight * 0.6 || travel < -24) setHidden(false);
+      else if (travel > 64) setHidden(true);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -70,14 +85,29 @@ export function SiteHeader() {
   }, [pathname]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-6 md:pt-6">
+    <header
+      className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-6 md:pt-6"
+      style={{ viewTransitionName: "site-header" }}
+    >
       <nav
         aria-label="Основная навигация"
         className={cn(
-          "mx-auto flex max-w-5xl items-center justify-between rounded-full py-2.5 pr-2.5 pl-5 transition-[transform,background-color] duration-700 ease-out-expo md:pl-6",
-          scrolled && !open ? "liquid-glass-strong -translate-y-1 scale-[0.97]" : "liquid-glass",
+          "fade-in pointer-events-auto mx-auto flex max-w-5xl items-center justify-between rounded-full py-2.5 pr-2.5 pl-5 transition-[translate,scale,background-color] duration-700 ease-out-expo [--d:200ms] md:pl-6",
+          scrolled && !open ? "liquid-glass-strong" : "liquid-glass",
+          hidden && !open
+            ? "-translate-y-[170%] focus-within:-translate-y-1 focus-within:scale-[0.97]"
+            : scrolled && !open && "-translate-y-1 scale-[0.97]",
         )}
       >
+        {/* How far down the page we are: a hairline along the lower edge of the bar */}
+        <m.span
+          aria-hidden="true"
+          style={{ scaleX: scrollYProgress }}
+          className={cn(
+            "absolute inset-x-7 bottom-0 h-px origin-left bg-accent transition-opacity duration-500",
+            scrolled && !open ? "opacity-80" : "opacity-0",
+          )}
+        />
         <div className="flex items-center gap-8">
           <SmartLink href="/#top" aria-label={`${siteConfig.name} — на главную`} className="rounded-full">
             <Logo />
@@ -93,7 +123,7 @@ export function SiteHeader() {
                     aria-current={isActive ? "true" : undefined}
                     className={cn(
                       "relative block rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200",
-                      isActive ? "text-white" : "text-white/70 hover:text-white",
+                      isActive ? "text-white" : "text-white/70 hover:bg-white/[0.05] hover:text-white",
                     )}
                   >
                     {isActive && (
@@ -117,7 +147,7 @@ export function SiteHeader() {
             <Magnetic>
               <SmartLink
                 href="/#contact"
-                className="group inline-flex items-center rounded-full bg-fg px-4 py-2 text-[13px] font-medium whitespace-nowrap text-ink transition-colors hover:bg-white active:scale-[0.97] md:px-5 md:py-2.5 md:text-sm"
+                className="btn-rise group inline-flex items-center rounded-full bg-fg px-4 py-2 text-[13px] font-medium whitespace-nowrap text-ink transition-[scale] duration-300 active:scale-[0.97] md:px-5 md:py-2.5 md:text-sm"
               >
                 <RollingLabel>Обсудить проект</RollingLabel>
               </SmartLink>
@@ -127,7 +157,7 @@ export function SiteHeader() {
           <button
             ref={toggleRef}
             type="button"
-            className="relative grid size-11 place-items-center rounded-full text-white transition-colors hover:bg-white/5 lg:hidden"
+            className="relative grid size-11 place-items-center rounded-full text-white transition-[background-color,scale] hover:bg-white/10 active:scale-95 lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
@@ -151,7 +181,9 @@ export function SiteHeader() {
         </div>
       </nav>
 
-      <AnimatePresence>{open && <MobileMenu onNavigate={() => close(false)} />}</AnimatePresence>
+      <div className="pointer-events-auto">
+        <AnimatePresence>{open && <MobileMenu onNavigate={() => close(false)} />}</AnimatePresence>
+      </div>
     </header>
   );
 }

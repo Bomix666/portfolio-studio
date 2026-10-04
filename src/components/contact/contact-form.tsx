@@ -18,6 +18,7 @@ import {
   type ContactResponse,
   type FieldErrors,
 } from "@/lib/validation/contact";
+import { buttonBase, ButtonDisc, buttonVariants } from "@/components/ui/button";
 import { ChoiceGroup, TextAreaField, TextField } from "./fields";
 
 interface Values {
@@ -42,7 +43,7 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 /**
  * Запасной путь для статической версии (GitHub Pages): сервера нет, поэтому заявка уходит
- * черновиком письма. Длинный текст обрезаем — почтовые клиенты режут слишком длинные mailto.
+ * черновиком письма. Длинный текст обрезаем — почтовые клиенты режут слишком длинные mailto.
  */
 function buildMailto(data: {
   name: string;
@@ -66,7 +67,7 @@ function buildMailto(data: {
   ]
     .filter((line, i, all) => i === all.indexOf("") || line !== "")
     .join("\n");
-  const subject = `Заявка с сайта — ${data.name}`;
+  const subject = `Заявка с сайта — ${data.name}`;
   return `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
@@ -188,7 +189,7 @@ export function ContactForm() {
     }
 
     if (isStaticExport) {
-      // Нет сервера — открываем почтовую программу с готовым письмом.
+      // Нет сервера — открываем почтовую программу с готовым письмом.
       setFormError(null);
       setSentTo("");
       setStatus("success");
@@ -247,7 +248,7 @@ export function ContactForm() {
   const messageLength = values.message.trim().length;
 
   return (
-    <div className="liquid-glass relative rounded-[1.75rem] bg-ink-2/60 p-6 sm:p-9 md:p-12">
+    <div className="relative rounded-plate bg-ink-2 p-6 ring-1 ring-white/10 sm:p-9 md:p-12">
       <AnimatePresence mode="wait" initial={false}>
         {status === "success" ? (
           <m.div
@@ -272,7 +273,7 @@ export function ContactForm() {
             <p className="mt-4 max-w-md text-body-l text-fg-muted">
               {isStaticExport ? (
                 <>
-                  Мы открыли вашу почтовую программу с готовым письмом — осталось нажать «Отправить». Не открылось?
+                  Мы открыли вашу почтовую программу с готовым письмом — осталось нажать «Отправить». Не открылось?
                   Напишите нам на{" "}
                   <a className="text-fg underline underline-offset-4" href={`mailto:${siteConfig.contact.email}`}>
                     {siteConfig.contact.email}
@@ -281,7 +282,7 @@ export function ContactForm() {
                 </>
               ) : (
                 <>
-                  Скоро с вами свяжемся.
+                  Скоро с вами свяжемся.
                   {sentTo && (
                     <>
                       {" "}
@@ -294,7 +295,7 @@ export function ContactForm() {
             <button
               type="button"
               onClick={reset}
-              className="group mt-10 inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm text-fg-muted transition-colors hover:border-fg hover:text-fg"
+              className="group mt-10 inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm text-fg-muted transition-[border-color,color,scale] duration-300 hover:border-fg hover:text-fg active:scale-[0.97]"
             >
               <RotateCcw aria-hidden="true" className="size-4 transition-transform duration-500 group-hover:-rotate-180" />
               Отправить ещё одно
@@ -474,10 +475,14 @@ export function ContactForm() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="group relative inline-flex items-center justify-center gap-3 self-start rounded-full bg-fg py-1.5 pr-1.5 pl-6 text-sm font-medium text-ink transition-[background-color,transform,opacity] duration-300 hover:bg-white active:scale-[0.97] disabled:cursor-progress disabled:opacity-80 sm:self-auto"
+                className={cn(
+                  buttonBase,
+                  buttonVariants.primary,
+                  "justify-center self-start [--disc:2.5rem] disabled:cursor-progress disabled:opacity-80 sm:self-auto",
+                )}
               >
                 <span aria-live="polite">{submitting ? "Отправляем…" : "Начать разговор"}</span>
-                <span className="grid size-10 place-items-center rounded-full bg-ink text-fg">
+                <ButtonDisc className="size-10">
                   {submitting ? (
                     <LoaderCircle aria-hidden="true" className="size-4 animate-spin" />
                   ) : (
@@ -486,7 +491,7 @@ export function ContactForm() {
                       className="size-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-0.5"
                     />
                   )}
-                </span>
+                </ButtonDisc>
               </button>
             </div>
           </m.form>

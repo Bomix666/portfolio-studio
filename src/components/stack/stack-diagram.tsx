@@ -158,7 +158,7 @@ export function StackDiagram() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.45, ease: ease.outExpo }}
-              className="liquid-glass rounded-3xl p-7 md:p-8"
+              className="rounded-plate bg-ink-2 p-7 ring-1 ring-white/10 md:p-8"
             >
               <TechDetail tech={active} />
             </m.div>
@@ -172,17 +172,22 @@ export function StackDiagram() {
 function TechDetail({ tech }: { tech: Tech }) {
   return (
     <>
-      <p className="label text-fg-subtle">{tech.layer}</p>
-      <h3 className="mt-3 font-serif text-display-m text-fg">{tech.name}</h3>
+      <h3 className="font-serif text-display-m text-fg">{tech.name}</h3>
       <p className="mt-4 text-fg-muted">{tech.use}</p>
-      <p className="label mt-8 text-fg-subtle">Связан с</p>
-      <ul className="mt-3 flex flex-wrap gap-2">
-        {tech.links.map((id) => (
-          <li key={id} className="rounded-full border border-line-strong px-3 py-1 font-mono text-[11px] text-fg-muted">
-            {byId.get(id)?.name}
-          </li>
-        ))}
-      </ul>
+      <dl className="mt-8 grid grid-cols-[auto_1fr] items-baseline gap-x-5 gap-y-3 border-t border-line pt-5">
+        <dt className="label text-fg-subtle">Слой</dt>
+        <dd className="text-sm text-fg">{tech.layer}</dd>
+        <dt className="label text-fg-subtle">Связан с</dt>
+        <dd>
+          <ul className="flex flex-wrap gap-x-4 gap-y-1">
+            {tech.links.map((id) => (
+              <li key={id} className="font-mono text-xs text-fg-muted">
+                {byId.get(id)?.name}
+              </li>
+            ))}
+          </ul>
+        </dd>
+      </dl>
     </>
   );
 }

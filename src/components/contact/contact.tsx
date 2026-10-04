@@ -39,20 +39,12 @@ export function Contact() {
 
       <div className="container-x relative grid gap-14 lg:grid-cols-12 lg:gap-6">
         <div className="lg:col-span-5">
-          <Reveal>
-            <p className="label flex items-center gap-3 text-fg-subtle">
-              <span className="text-accent">07</span>
-              <span className="h-px w-8 bg-line-strong" aria-hidden="true" />
-              <span>Контакты</span>
-            </p>
-          </Reveal>
-
           <RevealText
             id="contact-title"
             text={"Есть идея,\nкоторую *стоит воплотить?*"}
-            className="mt-8 font-serif text-display-l text-fg"
+            className="font-serif text-[clamp(2.6rem,1.2rem+3.9vw,4.75rem)] leading-[0.98] tracking-[-0.02em] text-fg"
           />
-          <Reveal delay={0.2}>
+          <Reveal variant="blur" delay={0.2}>
             <p className="mt-8 text-body-l text-fg">Расскажите, над чем вы работаете.</p>
             <p className="mt-3 max-w-sm text-fg-muted">
               Достаточно даже черновой идеи. Каждое сообщение читают те, кто потом будет делать работу.
@@ -86,6 +78,11 @@ export function Contact() {
                 </li>
               ))}
             </ul>
+            {siteConfig.placeholderContacts && (
+              <p className="mt-4 text-sm text-fg-subtle">
+                Контакты на этой странице временные: настоящие появятся перед запуском.
+              </p>
+            )}
           </Reveal>
         </div>
 

@@ -2,7 +2,7 @@
 
 import { m } from "motion/react";
 import { useEffect, useRef } from "react";
-import { Mail } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
 import { InstagramIcon, TelegramIcon } from "@/components/ui/brand-icons";
 import { SmartLink } from "@/components/ui/smart-link";
 import { navItems, siteConfig } from "@/config/site";
@@ -35,7 +35,7 @@ export function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_50%_at_100%_0%,rgb(242_163_58/0.14),transparent_70%)]"
       />
       <nav aria-label="Мобильная навигация" className="relative flex-1">
-        <ul className="space-y-1">
+        <ul>
           {navItems.map((item, i) => (
             <li key={item.href} className="overflow-hidden">
               <m.div
@@ -47,12 +47,15 @@ export function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
                   ref={i === 0 ? firstLinkRef : undefined}
                   href={item.href}
                   onClick={onNavigate}
-                  className="group flex items-baseline gap-4 py-1.5"
+                  className="group flex items-center justify-between gap-4 border-b border-line py-3"
                 >
-                  <span className="label w-6 text-fg-subtle">0{i + 1}</span>
                   <span className="font-serif text-[clamp(2.75rem,12vw,4.5rem)] leading-none text-fg transition-transform duration-500 ease-out-expo group-active:translate-x-2">
                     {item.label}
                   </span>
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="size-6 shrink-0 text-fg-subtle transition-[color,rotate] duration-500 ease-out-expo group-active:rotate-45 group-active:text-accent"
+                  />
                 </SmartLink>
               </m.div>
             </li>
@@ -61,7 +64,7 @@ export function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
       </nav>
 
       <m.div
-        className="relative space-y-6 border-t border-line pt-6"
+        className="relative space-y-6 pt-6"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.8, ease: ease.outExpo } }}
         exit={{ opacity: 0, transition: { duration: 0.2 } }}
@@ -73,7 +76,7 @@ export function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
         <div className="flex items-center gap-3">
           <a
             href={`mailto:${siteConfig.contact.email}`}
-            className="liquid-glass inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm text-fg"
+            className="inline-flex min-w-0 items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm text-fg transition-colors active:border-accent"
           >
             <Mail aria-hidden="true" className="size-4" />
             {siteConfig.contact.email}
@@ -83,7 +86,7 @@ export function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${siteConfig.socials.telegram.label} (откроется в новой вкладке)`}
-            className="liquid-glass grid size-11 place-items-center rounded-full text-fg"
+            className="grid size-11 shrink-0 place-items-center rounded-full border border-line-strong text-fg transition-colors active:border-accent"
           >
             <TelegramIcon size={18} />
           </a>
@@ -92,7 +95,7 @@ export function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${siteConfig.socials.instagram.label} (откроется в новой вкладке)`}
-            className="liquid-glass grid size-11 place-items-center rounded-full text-fg"
+            className="grid size-11 shrink-0 place-items-center rounded-full border border-line-strong text-fg transition-colors active:border-accent"
           >
             <InstagramIcon size={18} />
           </a>
